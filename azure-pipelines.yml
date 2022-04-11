@@ -1,0 +1,42 @@
+trigger:
+  tags:
+    include: [ prod-* ]
+
+resources:
+- repo: 'self'
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-18.04
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'mydocker'
+        repository: 'witeem/blazorserverapp'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: latest
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'myssh'
+        runOptions: 'inline'
+        inline: |
+          sudo docker kill blogweb
+          sudo docker rm blogweb
+          sudo docker kill myweb
+          sudo docker rm myweb
+          sudo docker rmi witeem/blazorserverapp
+          sudo docker pull witeem/blazorserverapp
+          sudo docker run -it --name blogweb -p 9080:80 -d witeem/blazorserverapp
+          sudo docker run -it --name myweb -p 9081:80 -d witeem/blazorserverapp
+        failOnStdErr: false
+        interactiveSession: true
+        readyTimeout: '20000'
