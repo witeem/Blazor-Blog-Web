@@ -31,4 +31,4 @@ Masa UI 相关资料：https://blazor.masastack.com/getting-started/installation
 
 ------
 
-......
+个人简易博客（服务端项目）：https://github.com/witeem/BlogCore.API
