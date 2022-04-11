@@ -1,0 +1,62 @@
+﻿/*scrollbar*/
+::-webkit-scrollbar-track {
+    border-radius: 15px;
+    margin: 5px 0;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    margin: 5px 0;
+}
+
+::-webkit-scrollbar-thumb {
+    margin: 5px 0;
+    border-radius: 15px;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(170 168 168)), color-stop(0.72, rgb(170 168 168)), color-stop(0.86, rgb(170 168 168)));
+}
+
+#blazor-error-ui {
+  background: lightyellow;
+  bottom: 0;
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+  display: none;
+  left: 0;
+  padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+  cursor: pointer;
+  position: absolute;
+  right: 0.75rem;
+  top: 0.5rem;
+}
+
+.fill-lighten-1 {
+    background: #f0f3fa !important;
+}
+
+.hide-shadow {
+    box-shadow: none !important;
+    border: none;
+}
+
+.rounded-2 {
+    border-radius: 10px !important;
+}
+
+.rounded-4 {
+    border-radius: 20px !important;
+}
+
+.neutral-lighten-1--text {
+    color: #323D6F !important;
+    caret-color: #323D6F !important;
+}
+
+.hover-pointer {
+    cursor: pointer;
+}

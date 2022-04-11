@@ -1,0 +1,56 @@
+﻿@page "/Register"
+@layout EmptyLayout
+
+<div class="d-flex algin-center" style="height:calc(100% - 96px)">
+    <MCard Width=510 Height=680 Class="mx-auto my-auto" Flat>
+        <div style="height:60px;"></div>
+        <div class="mt-2 mx-auto text-center" style="width:420px;">
+            <MAvatar Size=80>
+                <MImage Src="/img/avatar/9.svg">
+                </MImage>
+            </MAvatar>
+            <h5 class="mt-2 mb-12">欢迎来到Witeem博客基地! 👋</h5>
+            <MForm>
+                <MTextField @bind-Value="_account"
+                            Label = "Account"
+                            Placeholder="Account"
+                            Outlined
+                            HideDetails="@("auto")">
+                </MTextField>
+                <MTextField @bind-Value="_passwd"
+                            Class="mt-10"
+                            Label = "Password"
+                            Placeholder="Password"
+                            Type="@(_show ? "text" : "password")"
+                            AppendIcon="@(_show ? "mdi-eye" : "mdi-eye-off")"
+                            OnAppendClick="()=>_show = !_show"
+                            Outlined
+                            HideDetails="@("auto")">
+                </MTextField>
+                 <MTextField @bind-Value="_passwdVerify"
+                            Class="mt-10"
+                            Label = "Password"
+                            Placeholder="Password"
+                            Type="@(_show ? "text" : "password")"
+                            AppendIcon="@(_show ? "mdi-eye" : "mdi-eye-off")"
+                            OnAppendClick="()=>_show = !_show"
+                            Outlined
+                            HideDetails="@("auto")">
+                </MTextField>
+            </MForm>
+            @if (!_isPass)
+            {
+                <span class="justify-end mt-1 text-caption hover-pointer error--text" style="position:absolute; left:calc(50% - 62px)">
+                    @(_verifyMsg)
+                </span>
+            }
+            <MButton Class="mt-11 rounded-4 text-btn white--text" Height=46 Width=340 Color="primary" Loading="_loading" OnClick="Login">注册</MButton>
+        </div>
+    </MCard>
+</div>
+
+<MFooter Padless Height=96 Style="background:transparent;">
+    <MRow Justify="JustifyTypes.Center">
+        <a href="https://beian.miit.gov.cn/" target="_blank" class="neutral-lighten-3--text" style="text-decoration:none;font-size:14px;">粤ICP备2022003323号-1</a>
+    </MRow>
+</MFooter>

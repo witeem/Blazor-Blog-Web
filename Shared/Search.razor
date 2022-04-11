@@ -1,0 +1,45 @@
+﻿@inherits ProCompontentBase
+@inject NavHelper NavHelper
+@{
+    var navs = GetNavs(SearchContent);
+}
+
+<MMenu OffsetY Bottom Right CloseOnContentClick="false" MinWidth=340 ContentClass="@(string.IsNullOrEmpty(SearchContent) ? "hide-shadow":"")">
+    <ActivatorContent>
+        <div @attributes="@context.Attrs">
+            <MTextField @bind-Value="SearchContent" Class="rounded-2" Style="width:340px;height:40px;" Flat Dense Solo BackgroundColor="fill-lighten-1" HideDetails="@("auto")" Placeholder="Search">
+                <PrependInnerContent>
+                    <MButton Icon Color="indigo" Small>
+                        <MIcon Size=16 Class="mr-1 neutral-lighten-1--text hover-pointer">mdi-magnify</MIcon>
+                    </MButton>
+                </PrependInnerContent>
+            </MTextField>
+        </div>
+    </ActivatorContent>
+    <ChildContent>
+        @if(navs.Count>0)
+        {
+           <MList>
+                @foreach (var nav in navs)
+                {
+                    <MListItem OnClick="()=>NavHelper.NavigateToByEvent(nav)">
+                        <MListItemAction>
+                            <MIcon Size=20 Color="neutral-lighten-4">@nav.ParentIcon</MIcon>
+                        </MListItemAction>
+                        <MListItemContent>
+                            <span Class="text-btn">@GetI18nFullTitle(nav.FullTitle)</span>
+                        </MListItemContent>
+                    </MListItem>
+                }
+            </MList>
+        }
+        else if(string.IsNullOrEmpty(SearchContent) is false)
+        {
+            <MList>
+                <MListItem>
+                    <span class="text-btn ma-auto">No data available</span>
+                </MListItem>
+            </MList>
+        }
+    </ChildContent>
+</MMenu>

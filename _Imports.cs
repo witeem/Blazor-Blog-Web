@@ -1,0 +1,13 @@
+﻿global using BlazorServerApp.Data;
+global using BlazorServerApp.Global;
+global using BlazorServerApp.Global.Config;
+global using Microsoft.AspNetCore.Components;
+global using BlazorComponent;
+global using BlazorComponent.I18n;
+global using System.Reflection;
+global using System.Text.Json;
+global using Masa.Blazor;
+global using System.ComponentModel;
+global using BlazorServerApp.HttpServers;
+global using witeem.CoreHelper.ExtensionTools.CommonTools;
+global using Microsoft.Extensions.Options;

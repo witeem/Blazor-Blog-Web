@@ -1,0 +1,52 @@
+﻿@inherits ProCompontentBase
+@inject MasaBlazor MasaBlazor
+@inject GlobalConfig GlobalConfig;
+@implements IDisposable
+<MRow Class="mx-auto">
+    <MCol Md=4 Sm=12>
+        <MCard Height=150 Flat>
+            <MCardText>
+                <MRow Class="max-height" NoGutters>
+                    <MCol>
+                        <span class="text-btn neutral-lighten-4--text">浏览人数</span>
+                        <h5 class="mt-1">$230k</h5>
+                    </MCol>
+                    <MCol Class="block-center">
+                        <MECharts Height=100 Width="@("100%")" Class="mt-1" @key="GetEchartKey()" Option=_orderChart></MECharts>
+                    </MCol>
+                </MRow>
+            </MCardText>
+        </MCard>
+    </MCol>
+    <MCol Md=4 Sm=12>
+        <MCard Height=150 Flat>
+            <MCardText>
+                <MRow Class="max-height" NoGutters>
+                    <MCol>
+                        <span class="text-btn neutral-lighten-4--text">点赞人数</span>
+                        <h5 class="mt-1">$682.5k</h5>
+                    </MCol>
+                    <MCol Class="block-center">
+                        <MECharts Height=100 Width="@("100%")" Class="mt-1" @key="GetEchartKey()" Option=_profitChart></MECharts>
+                    </MCol>
+                </MRow>
+            </MCardText>
+        </MCard>
+    </MCol>
+    <MCol Md=4 Sm=12>
+        <MCard Height=150 Flat>
+            <MCardText>
+                <MRow Class="max-height" NoGutters>
+                    <MCol>
+                        <span class="text-btn neutral-lighten-4--text">文章分类</span>
+                        <h5 class="my-1">$9745</h5>
+                        <span class="text-caption neutral-lighten-2--text">68% more earning than last month.</span>
+                    </MCol>
+                    <MCol Class="block-center">
+                        <MECharts Height=100 Width="@("100%")" Class="mt-1" @key="GetEchartKey()" Option=_earningsChart></MECharts>
+                    </MCol>
+                </MRow>
+            </MCardText>
+        </MCard>
+    </MCol>
+</MRow>

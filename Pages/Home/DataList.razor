@@ -1,0 +1,111 @@
+﻿<MRow Class="ma-auto hover-pointer">
+    <MCol OffsetSm="0">
+        @foreach (var item in _items)
+        {
+            <MCard Class="mb-3" Link Href="@("/DataDetail/" + @item.Id)" Flat>
+                <MCardTitle Class="mb-1">
+                    <MAvatar>
+                        <MImage Src="@item.Avatar"></MImage>
+                    </MAvatar> 
+                     <span class="mr-4"> </span>
+                     @item.Title
+                </MCardTitle>
+                <MCardSubtitle><span class="font-weight-bold">@item.SubTtile.Split("&mdash;")[0]</span> &mdash;@item.SubTtile.Split("&mdash;")[1] </MCardSubtitle>
+            </MCard>
+        }
+    </MCol>
+</MRow>
+@code
+{
+    private class DataDemo
+    {
+        public long Id { get; set; }
+        public string Header { get; set; }
+        public string Avatar { get; set; }
+        public string Title { get; set; }
+        public string SubTtile { get; set; }
+        public bool Divider { get; set; }
+        public bool Inset { get; set; }
+    }
+
+    private List<DataDemo> _items = new List<DataDemo>()
+    {
+        new DataDemo
+        {
+            Id = 1000010,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/1.png",
+            Title = "Brunch this weekend?",
+            SubTtile = "Ali Connors &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+        },
+        new DataDemo
+        {
+            Id = 1000011,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/2.png",
+            Title = "Summer BBQ",
+            SubTtile = "to Alex, Scott, Jennifer &mdash; Wish I could come, but I'm out of town this weekend."
+        },
+        new DataDemo
+        {
+            Id = 1000012,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/3.png",
+            Title = "Oui oui",
+            SubTtile = "Sandra Adams &mdash; Do you have Paris recommendations? Have you ever been?"
+        },
+        new DataDemo
+        {
+            Id = 1000013,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/1.png",
+            Title = "Brunch this weekend?",
+            SubTtile = "Ali Connors &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+        },
+        new DataDemo
+        {
+            Id = 1000014,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/2.png",
+             Title = "Summer BBQ",
+            SubTtile = "to Alex, Scott, Jennifer &mdash; Wish I could come, but I'm out of town this weekend."
+        },
+        new DataDemo
+        {
+            Id = 1000015,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/3.png",
+            Title = "Oui oui",
+            SubTtile = "Sandra Adams &mdash; Do you have Paris recommendations? Have you ever been?"
+        },
+        new DataDemo
+        {
+            Id = 1000016,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/1.png",
+            Title = "Brunch this weekend?",
+            SubTtile = "Ali Connors &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+        },
+        new DataDemo
+        {
+            Id = 1000017,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/2.png",
+             Title = "Summer BBQ",
+            SubTtile = "to Alex, Scott, Jennifer &mdash; Wish I could come, but I'm out of town this weekend."
+        },
+        new DataDemo
+        {
+            Id = 1000018,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/3.png",
+            Title = "Oui oui",
+            SubTtile = "Sandra Adams &mdash; Do you have Paris recommendations? Have you ever been?"
+        },
+        new DataDemo
+        {
+            Id = 1000019,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/1.png",
+            Title = "Brunch this weekend?",
+            SubTtile = "Ali Connors &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+        },
+        new DataDemo
+        {
+            Id = 1000020,
+            Avatar = "https://cdn.masastack.com/stack/images/website/masa-blazor/lists/2.png",
+            Title = "Summer BBQ",
+            SubTtile = "to Alex, Scott, Jennifer &mdash; Wish I could come, but I'm out of town this weekend."
+        }
+    };
+}

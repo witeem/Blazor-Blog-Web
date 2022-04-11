@@ -1,0 +1,80 @@
+﻿@inherits LayoutComponentBase
+@inject NavHelper NavHelper
+<MApp>
+    <MAppBar Elevation=0 MaxHeight=60 Class="mx-4 rounded-b-2" Fixed Color="#ffffff" App>
+        <ChildContent>
+            <MImage Src="favicon.ico" MaxWidth=30 Class="mr-3"></MImage>
+            <MAppBarTitle>工欲善其事，必先利其器</MAppBarTitle>
+
+            <MSpacer></MSpacer>
+            <Search SearchContent="@_searchContent" />
+            <span style="margin-right:20px;"></span>
+
+            @if (_isLogin)
+            {
+                <MMenu Bottom MinWidth="200" OffsetY Class="rounded-b-2">
+                    <ActivatorContent>
+                        <MButton Icon Large @attributes="context.Attrs">
+                            <MAvatar Size="48">
+                                <MImage Src="@_userInfo?.Picture" Alt="@_userInfo?.Name"></MImage>
+                            </MAvatar>
+                        </MButton>
+                    </ActivatorContent>
+                    <ChildContent>
+                        <MCard>
+                            <MListItemContent Class="justify-center">
+                                <div class="mx-auto text-center">
+                                    <MAvatar Size="48">
+                                        <MImage Src="@_userInfo?.Picture" Alt="@_userInfo?.Name"></MImage>
+                                    </MAvatar>
+                                    <h5>@_userInfo?.Name</h5>
+                                    <p class="text-caption mt-1">@_userInfo?.NickName</p>
+                                    <MDivider class="my-3"></MDivider>
+                                    <MButton Depressed Rounded Text Small OnClick="Logout">Logout</MButton>
+                                </div>
+                            </MListItemContent>
+                        </MCard>
+                    </ChildContent>
+                </MMenu>
+            }
+            else
+            {
+                <MMenu Bottom MinWidth="200" Rounded="@true" OffsetY>
+                    <ActivatorContent>
+                        <MButton Icon Large @attributes="context.Attrs"><MIcon>mdi-account-circle-outline</MIcon></MButton>
+                    </ActivatorContent>
+                    <ChildContent>
+                        <MCard>
+                            <MListItemContent Class="justify-center">
+                                <div class="mx-auto text-center">
+                                    <MButton Depressed Rounded Text Small OnClick="Login">Login</MButton>
+                                </div>
+                            </MListItemContent>
+                        </MCard>
+                    </ChildContent>
+                </MMenu>
+            }
+        </ChildContent>
+    </MAppBar>
+    <MNavigationDrawer Fixed Permanent Width=350 App>
+        <MCard Class="mx-auto mt-10 mb-10" MaxWidth="232" Flat>
+            <ChildContent>
+                <MAvatar Size=200>
+                    <MImage Src="/images/witeem.png" Alt="Jack"></MImage>
+                </MAvatar>
+                <MCardTitle>@(_bloggerInfo?.Blogger ?? "")</MCardTitle>
+                <MCardText>
+                    <div>@(_bloggerInfo?.Details ?? "")</div>
+                </MCardText>
+            </ChildContent>
+        </MCard>
+        <MCard Class="mx-auto" MaxWidth="320" Flat Light>
+            <iframe width="320" height="400" frameborder="0" scrolling="no" hspace="0" src="/html/WeatherSDK.html"></iframe>
+        </MCard>
+    </MNavigationDrawer>
+    <MMain Class="fill-lighten-1" Style="padding-top:60px">
+        <div class="pa-6 max-width">
+            @Body
+        </div>
+    </MMain>
+</MApp>

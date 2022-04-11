@@ -1,0 +1,75 @@
+﻿@page "/DataDetail"
+@page "/DataDetail/{Id}"
+@using PSC.Blazor.Components.MarkdownEditor
+@using PSC.Blazor.Components.MarkdownEditor.EventsArgs
+@layout EmptyLayout
+
+<MCard Height="200" Light Flat>
+    <MToolbar Prominent Extended Elevation=1>
+        <MButton Icon Link Href="/"
+                 Class="hidden-xs-only">
+            <MIcon>mdi-arrow-left</MIcon>
+        </MButton>
+        <MToolbarTitle>Witeem</MToolbarTitle>
+
+        <MSpacer></MSpacer>
+
+        <MButton Icon>
+            <MIcon>mdi-magnify</MIcon>
+        </MButton>
+
+        <MButton Icon>
+            <MIcon>mdi-heart</MIcon>
+        </MButton>
+
+        <MButton Icon>
+            <MIcon>mdi-dots-vertical</MIcon>
+        </MButton>
+    </MToolbar>
+</MCard>
+
+<div class="d-flex justify-center mb-6" style="height:calc(100% - 200px)">
+    <div class="col-md-8">
+        @((MarkupString)markdownHtml)
+    </div>
+</div>
+
+@code {
+    string markdownValue = @"# Markdown Editor
+## Markdown Editor
+### Markdown Editor
+#### Markdown Editor
+##### Markdown Editor
+* Markdown Editor
+
+```C#
+public void Text()
+{
+    Console.WriteLine('Markdown Editor');
+}
+``` 
+<br />
+<p> Markdown Editor </p> ";
+
+    string markdownHtml;
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        markdownHtml = Markdig.Markdown.ToHtml(markdownValue ?? string.Empty);
+        base.OnInitialized();
+    }
+
+    Task OnMarkdownValueChanged(string value)
+    {
+        return Task.CompletedTask;
+    }
+
+    Task OnMarkdownValueHTMLChanged(string value)
+    {
+        markdownHtml = value;
+        return Task.CompletedTask;
+    }
+}
