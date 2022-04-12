@@ -1,7 +1,5 @@
 ﻿@page "/DataDetail"
 @page "/DataDetail/{Id}"
-@using PSC.Blazor.Components.MarkdownEditor
-@using PSC.Blazor.Components.MarkdownEditor.EventsArgs
 @layout EmptyLayout
 
 <MCard Height="200" Light Flat>
@@ -27,49 +25,15 @@
         </MButton>
     </MToolbar>
 </MCard>
-
 <div class="d-flex justify-center mb-6" style="height:calc(100% - 200px)">
-    <div class="col-md-8">
-        @((MarkupString)markdownHtml)
+    <div class="col-md-8 line-numbers">
+        @if (_hasXss)
+        {
+            @_postHtmlContent.ToString();
+        }
+        else
+        {
+            @_postHtmlContent
+        }
     </div>
 </div>
-
-@code {
-    string markdownValue = @"# Markdown Editor
-## Markdown Editor
-### Markdown Editor
-#### Markdown Editor
-##### Markdown Editor
-* Markdown Editor
-
-```C#
-public void Text()
-{
-    Console.WriteLine('Markdown Editor');
-}
-``` 
-<br />
-<p> Markdown Editor </p> ";
-
-    string markdownHtml;
-
-    [Parameter]
-    public string Id { get; set; }
-
-    protected override void OnInitialized()
-    {
-        markdownHtml = Markdig.Markdown.ToHtml(markdownValue ?? string.Empty);
-        base.OnInitialized();
-    }
-
-    Task OnMarkdownValueChanged(string value)
-    {
-        return Task.CompletedTask;
-    }
-
-    Task OnMarkdownValueHTMLChanged(string value)
-    {
-        markdownHtml = value;
-        return Task.CompletedTask;
-    }
-}

@@ -3,12 +3,10 @@ namespace BlazorServerApp.Global.Config;
 public class BrowserStorageProvider : IStorageProvider
 {
     private readonly IJSRuntime _jSRuntime;
-    private readonly IJSInProcessRuntime _jSInProcessRuntime;
 
     public BrowserStorageProvider(IJSRuntime jSRuntime)
     {
         _jSRuntime = jSRuntime;
-        _jSInProcessRuntime = jSRuntime as IJSInProcessRuntime;
     }
 
     public async ValueTask<string> GetCookiesItemAsync(string key, CancellationToken? cancellationToken = null)

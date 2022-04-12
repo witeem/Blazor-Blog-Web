@@ -1,5 +1,10 @@
 ﻿html {
-    font-size: 16px;
+    font-size: 14px;
+}
+
+hr {
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 /*scrollbar*/
@@ -24,9 +29,9 @@
     /* Headline 1 */
     font-family: Roboto !important;
     font-style: normal !important;
-    font-weight: 300 !important;
-    font-size: 6rem !important;
-    line-height: 7rem !important;
+    font-weight: bold !important;
+    font-size: 4rem !important;
+    line-height: 4rem !important;
     /* identical to box height */
     letter-spacing: -0.093755em !important;
     /* default color */
@@ -37,11 +42,11 @@
     /* Headline 2 */
     font-family: Roboto !important;
     font-style: normal !important;
-    font-weight: 900 !important;
-    font-size: 3.75rem !important;
-    line-height: 4.375rem !important;
+    font-weight: bold !important;
+    font-size: 3.2rem !important;
+    line-height: 3.5rem !important;
     /* identical to box height */
-    letter-spacing: -0.03125em !important;
+    letter-spacing: -0.04425em !important;
     /* default color */
     color: #323D6F;
 }
@@ -50,11 +55,12 @@
     /* Headline 3 */
     font-family: Roboto !important;
     font-style: normal !important;
-    font-weight: 900 !important;
-    font-size: 3rem !important;
-    line-height: 3.5rem !important;
+    font-weight: bold !important;
+    font-size: 2.25rem !important;
+    line-height: 2.5rem !important;
+    letter-spacing: -0.03125em !important;
     /* default color */
-    color: #323D6F;
+    color: #323A66;
 }
 
 .h4, .text-h4, h4 {
@@ -62,8 +68,8 @@
     font-family: Roboto !important;
     font-style: normal !important;
     font-weight: bold !important;
-    font-size: 2.125rem !important;
-    line-height: 2.625rem !important;
+    font-size: 1.85rem !important;
+    line-height: 2rem !important;
     /* identical to box height */
     letter-spacing: 0.02em !important;
     /* default color */
@@ -76,7 +82,7 @@
     font-style: normal !important;
     font-weight: bold !important;
     font-size: 1.5rem !important;
-    line-height: 2.25rem !important;
+    line-height: 1.75rem !important;
     /* identical to box height */
     /* default color */
     color: #1B2559;
@@ -88,7 +94,7 @@
     font-style: normal !important;
     font-weight: bold !important;
     font-size: 1.25rem !important;
-    line-height: 1.875rem !important;
+    line-height: 1.5rem !important;
     /* identical to box height */
     letter-spacing: 0.01em !important;
     /* default color */
