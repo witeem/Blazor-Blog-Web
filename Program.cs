@@ -18,6 +18,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.Configure<AppSetting>(builder.Configuration.GetSection(BaseContst.AppSetting));
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddGlobalForServer();
+builder.Services.AddCors(x => x.AddPolicy("externalRequests", policy => policy.WithOrigins("https://jsonip.com")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,7 +32,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-
+app.UseCors("externalRequests");
 app.UseRouting();
 app.UseGlobal();
 app.MapBlazorHub();

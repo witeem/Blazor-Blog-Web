@@ -33,21 +33,15 @@ namespace BlazorServerApp.Pages.Home;
         {
             if (firstRender)
             {
+                var ipAddress = await _jsRuntime.InvokeAsync<string>("getIpAddress");
                 var datas = await GetBloggerArticleAsync(Id);
                 if (datas.Successed)
                 {
-                    markdownValue = datas.Data.Article;
-                    var htmlData = Markdown.ToHtml(markdownValue ?? string.Empty);
-                    // 转为 prism 支持的语言标记（不是必须，可以删除）
-                    htmlData = htmlData.Replace("language-golang", "language-go");
-
-                    // TODO: 使用 https://github.com/mganss/HtmlSanitizer 清洗html中的xss
-                    if (htmlData.Contains("<script") || htmlData.Contains("<link"))
+                    HtmlToMarkdown(datas);
+                    if (!string.IsNullOrEmpty(ipAddress))
                     {
-                        _hasXss = true;
+                        _ = await AddViews(Id, ipAddress);
                     }
-
-                    _postHtmlContent = (MarkupString)htmlData;
                 }
 
                 StateHasChanged();
@@ -63,9 +57,28 @@ namespace BlazorServerApp.Pages.Home;
     }
 
     /// <summary>
+    /// 文章内容转成MarkDown
+    /// </summary>
+    /// <param name="datas"></param>
+    private void HtmlToMarkdown(ApiResponce<BloggerArticleDto> datas)
+    {
+        markdownValue = datas.Data.Article;
+        var htmlData = Markdown.ToHtml(markdownValue ?? string.Empty);
+        // 转为 prism 支持的语言标记（不是必须，可以删除）
+        htmlData = htmlData.Replace("language-golang", "language-go");
+
+        // TODO: 使用 https://github.com/mganss/HtmlSanitizer 清洗html中的xss
+        if (htmlData.Contains("<script") || htmlData.Contains("<link"))
+        {
+            _hasXss = true;
+        }
+
+        _postHtmlContent = (MarkupString)htmlData;
+    }
+
+    /// <summary>
     /// 获取文章详情
     /// </summary>
-    /// <returns></returns>
     private async Task<ApiResponce<BloggerArticleDto>> GetBloggerArticleAsync(string Id)
     {
 #if DEBUG
@@ -73,11 +86,29 @@ namespace BlazorServerApp.Pages.Home;
 #else
                 _httpClientHelper.BaseUri = _appSetting.CurrentValue.GatewayUri;
 #endif
-        _httpClientHelper.WithAccToken = true;
         Dictionary<string, string> reqParams = new Dictionary<string, string>();
         reqParams.Add("Type", "1");
         reqParams.Add("Id", Id);
         var bloggerInfo = await _httpClientHelper.GetAsync<BloggerArticleDto>("/api/AdverUser/GetArticleDetails", reqParams);
         return bloggerInfo;
+    }
+
+    /// <summary>
+    /// 新增文章浏览数量
+    /// </summary>
+    /// <param name="Id"></param>
+    /// <param name="Ip"></param>
+    private async Task<bool> AddViews(string Id, string Ip)
+    {
+#if DEBUG
+        _httpClientHelper.BaseUri = _appSetting.CurrentValue.ApiUri;
+#else
+                _httpClientHelper.BaseUri = _appSetting.CurrentValue.GatewayUri;
+#endif
+        Dictionary<string, string> reqParams = new Dictionary<string, string>();
+        reqParams.Add("Id", Id);
+        reqParams.Add("IP", Ip);
+        var responce = await _httpClientHelper.GetAsync<bool>("/api/Article/ArticleAddViews", reqParams);
+        return responce.Data;
     }
 }

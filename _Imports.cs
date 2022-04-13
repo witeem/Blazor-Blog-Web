@@ -11,3 +11,4 @@ global using System.ComponentModel;
 global using BlazorServerApp.HttpServers;
 global using witeem.CoreHelper.ExtensionTools.CommonTools;
 global using Microsoft.Extensions.Options;
+global using BlazorServerApp.Global.Base;

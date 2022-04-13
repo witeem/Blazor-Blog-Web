@@ -1,4 +1,6 @@
-﻿namespace BlazorServerApp.Global;
+﻿using BlazorServerApp.Global.Base;
+
+namespace BlazorServerApp.Global;
 
 public static class ServiceCollectionExtensions
 {
@@ -9,7 +11,6 @@ public static class ServiceCollectionExtensions
         services.AddNav(Path.Combine(basePath, $"wwwroot/nav/nav.json"));
         services.AddScoped<GlobalConfig>();
         services.AddScoped<GlobalConfigChangedEvent>();
-
         services.AddScoped<IStorageProvider, BrowserStorageProvider>();
         services.AddScoped<CookiesStorageService>();
         services.AddScoped<HttpClientHelper>();
@@ -24,7 +25,6 @@ public static class ServiceCollectionExtensions
         services.AddNav(navList);
         services.AddScoped<GlobalConfig>();
         services.AddScoped<GlobalConfigChangedEvent>();
-
         services.AddScoped<IStorageProvider, BrowserStorageProvider>();
         services.AddScoped<CookiesStorageService>();
         services.AddScoped<HttpClientHelper>();

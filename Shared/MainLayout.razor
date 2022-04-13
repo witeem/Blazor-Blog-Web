@@ -1,15 +1,13 @@
 ﻿@inherits LayoutComponentBase
 @inject NavHelper NavHelper
 <MApp>
-    <MAppBar Elevation=0 MaxHeight=60 Class="mx-4 rounded-b-2" Fixed Color="#ffffff" App>
+    <MAppBar Absolute Elevation=0 MaxHeight=250 Height=250 Class="ml-8 mr-8 rounded-2" Color="#6A76AB" Src="images/bg.jpg" Dark FadeImgOnScroll Prominent App>
+         <ImgContent>
+            <MImage Gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)" @attributes="@context"></MImage>
+        </ImgContent>
         <ChildContent>
-            <MImage Src="favicon.ico" MaxWidth=30 Class="mr-3 ml-3"></MImage>
-            <MAppBarTitle>工欲善其事，必先利其器</MAppBarTitle>
-
+            <MAppBarTitle Class="white--text ml-6 mb-4">工欲善其事，必先利其器</MAppBarTitle>
             <MSpacer></MSpacer>
-            <Search SearchContent="@_searchContent" />
-            <span style="margin-right:20px;"></span>
-
             @if (_isLogin)
             {
                 <MMenu Bottom MinWidth="200" OffsetY Class="rounded-b-2">
@@ -41,22 +39,13 @@
             {
                 <MMenu Bottom MinWidth="200" Rounded="@true" OffsetY>
                     <ActivatorContent>
-                        <MButton Icon Large @attributes="context.Attrs"><MIcon>mdi-account-circle-outline</MIcon></MButton>
+                        <MButton Icon OnClick="Login"><MIcon Color="#fff">mdi-account-circle-outline</MIcon></MButton>
                     </ActivatorContent>
-                    <ChildContent>
-                        <MCard>
-                            <MListItemContent Class="justify-center">
-                                <div class="mx-auto text-center">
-                                    <MButton Depressed Rounded Text Small OnClick="Login">Login</MButton>
-                                </div>
-                            </MListItemContent>
-                        </MCard>
-                    </ChildContent>
                 </MMenu>
             }
         </ChildContent>
     </MAppBar>
-    <MNavigationDrawer Fixed Permanent Width=350 App>
+    <MNavigationDrawer Fixed Permanent Width=330 App>
         <MCard Class="mx-auto mt-10 mb-10" MaxWidth="232" Flat>
             <ChildContent>
                 <MAvatar Size=200>
@@ -72,7 +61,7 @@
             <iframe width="320" height="400" frameborder="0" scrolling="no" hspace="0" src="/html/WeatherSDK.html"></iframe>
         </MCard>
     </MNavigationDrawer>
-    <MMain Class="fill-lighten-1" Style="padding-top:60px">
+    <MMain Class="fill-lighten-1" Style="padding-top:240px">
         <div class="pa-6 max-width">
             @Body
         </div>
