@@ -7,6 +7,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  appsettings: appsettings.Production.json
 
 stages:
 - stage: Build
@@ -17,6 +18,16 @@ stages:
     pool:
       vmImage: ubuntu-18.04
     steps:
+    - script: |
+        ls $(appsettings) -l
+        chmod 666 $(appsettings)
+        sed  -i  's/{ConnKey}/$(ConnKey)/g'  $(appsettings)
+        sed  -i  's/{ConnIV}/$(ConnIV)/g'  $(appsettings)
+        echo "================= print file $(appsettings) start ===================="
+        cat $(appsettings) | while read line; do echo $line; done
+        echo "================= print file $(appsettings) end ===================="
+        echo "command executed"
+
     - task: Docker@2
       inputs:
         containerRegistry: 'mydocker'
