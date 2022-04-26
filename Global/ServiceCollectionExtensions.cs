@@ -14,6 +14,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IStorageProvider, BrowserStorageProvider>();
         services.AddScoped<CookiesStorageService>();
         services.AddScoped<HttpClientHelper>();
+        services.AddScoped<UserInfoServers>();
         return services;
     }
 
@@ -28,6 +29,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IStorageProvider, BrowserStorageProvider>();
         services.AddScoped<CookiesStorageService>();
         services.AddScoped<HttpClientHelper>();
+        services.AddScoped<UserInfoServers>();
         return services;
     }
 }

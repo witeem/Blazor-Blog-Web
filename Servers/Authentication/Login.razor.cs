@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using BlazorServerApp.Global.Base.Enums;
 using BlazorServerApp.HttpServers.Dtos;
 using Microsoft.Extensions.Options;
 
@@ -15,6 +16,7 @@ public partial class Login
 
     [Inject] public NavigationManager _navigation { get; set; }
     [Inject] public HttpClientHelper _httpClientHelper { get; set; }
+    [Inject] public UserInfoServers _userInfoServers { get; set; }
     [Inject] public IStorageProvider _localStorage { get; set; }
     [Inject] public IOptionsMonitor<AppSetting> _appSetting { get; set; }
 
@@ -55,8 +57,8 @@ public partial class Login
                 _verifyMsg = "账号密码错误，请重试";
                 return;
             }
-            ApiResponce<LoginResult> authInfo = await GetAuthToken();
-            if (authInfo.Code == 200 && authInfo.Data.success)
+            ApiResponce<LoginResult> authInfo = await _userInfoServers.GetAuthToken(_account, _passwd);
+            if (authInfo.Code == (int)ApiResultEnum.Succeed && authInfo.Data.success)
             {
                 // 存Cookie
 #if DEBUG
@@ -82,20 +84,5 @@ public partial class Login
             _verifyMsg = "账号密码错误，请重试";
             return;
         }
-    }
-
-    /// <summary>
-    /// 获取登录Token
-    /// </summary>
-    /// <returns></returns>
-    private async Task<ApiResponce<LoginResult>> GetAuthToken()
-    {
-        // 网关地址，请求时 Kong API 网关会根据路由匹配转发到对应的应用服务上 
-        _httpClientHelper.BaseUri = _appSetting.CurrentValue.GatewayUri;
-        Dictionary<string, string> reqParams = new Dictionary<string, string>();
-        reqParams.Add("UserName", _account);
-        reqParams.Add("Password", _passwd);
-        var authInfo = await _httpClientHelper.GetAsync<LoginResult>("/api/oAuth/Login", reqParams);
-        return authInfo;
     }
 }

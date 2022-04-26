@@ -1,4 +1,6 @@
-﻿using BlazorServerApp.HttpServers.Dtos;
+﻿using BlazorServerApp.Data.Blogger;
+using BlazorServerApp.Global.Base.Enums;
+using BlazorServerApp.HttpServers.Dtos;
 
 namespace BlazorServerApp.Pages.Authentication;
 public partial class Register
@@ -13,6 +15,7 @@ public partial class Register
 
     [Inject] public NavigationManager _navigation { get; set; }
     [Inject] public HttpClientHelper _httpClientHelper { get; set; }
+    [Inject] public UserInfoServers _userInfoServers { get; set; }
     [Inject] public CookieStorage _cookieStorage { get; set; }
     [Inject] public IOptionsMonitor<AppSetting> _appSetting { get; set; }
 
@@ -55,9 +58,10 @@ public partial class Register
                 return;
             }
 
-            ApiResponce<LoginResult> authInfo = new ApiResponce<LoginResult>();
-            if (authInfo.Code == 200 && authInfo.Data.success)
+            ApiResponce<LoginResult> authInfo = await _userInfoServers.GetUserInfoAsync(_account, _passwd);
+            if (authInfo.Code == (int)ApiResultEnum.Succeed)
             {
+
                 _cookieStorage.SetItemAsync("accessToken", authInfo.Data.access_token);
                 _navigation.NavigateTo($"{_navigation.BaseUri}");
             }

@@ -62,7 +62,7 @@ public class HttpClientHelper
         {
             _client = CreateClient();
             var request = new RestRequest(serverMethod);
-            if (_isSign) await CreateSign(queryParams);
+            if (_isSign) queryParams = CreateSign<string>(queryParams, null);
             if (_withAccToken) await AddAccToken(request);
 
             if (queryParams != null)
@@ -90,23 +90,24 @@ public class HttpClientHelper
         }
     }
 
-    public async Task<ApiResponce<T>> PostAsync<T>(string serverMethod, string requestBody, int timeoutSecond = 180, CancellationToken cancellationToken = default)
+    public async Task<ApiResponce<T>> PostAsync<T, N>(string serverMethod, N requestBody, int timeoutSecond = 180, CancellationToken cancellationToken = default)
     {
-        return await PostAsync<T>(serverMethod, requestBody, null, null, timeoutSecond, cancellationToken);
+        return await PostAsync<T, N>(serverMethod, requestBody, null, null, timeoutSecond, cancellationToken);
     }
 
-    public async Task<ApiResponce<T>> PostAsync<T>(string serverMethod, string requestBody, Dictionary<string, string> queryParams, int timeoutSecond = 180, CancellationToken cancellationToken = default)
+    public async Task<ApiResponce<T>> PostAsync<T, N>(string serverMethod, N requestBody, Dictionary<string, string> queryParams, int timeoutSecond = 180, CancellationToken cancellationToken = default)
     {
-        return await PostAsync<T>(serverMethod, requestBody, queryParams, null, timeoutSecond, cancellationToken);
+        return await PostAsync<T, N>(serverMethod, requestBody, queryParams, null, timeoutSecond, cancellationToken);
     }
 
-    public async Task<ApiResponce<T>> PostAsync<T>(string serverMethod, string requestBody, Dictionary<string, string> queryParams, ICollection<KeyValuePair<string, string>> headerParams, int timeoutSecond = 180, CancellationToken cancellationToken = default)
+    public async Task<ApiResponce<T>> PostAsync<T, N>(string serverMethod, N requestBody, Dictionary<string, string> queryParams, ICollection<KeyValuePair<string, string>> headerParams, int timeoutSecond = 180, CancellationToken cancellationToken = default)
     {
         try
         {
             _client = CreateClient();
             var request = new RestRequest(serverMethod);
-            if (_isSign) await CreateSign(queryParams);
+            request.Timeout = timeoutSecond * 1000;
+            if (_isSign) queryParams = CreateSign(queryParams, requestBody);
             if (_withAccToken) await AddAccToken(request);
 
             if (queryParams != null)
@@ -123,8 +124,7 @@ public class HttpClientHelper
                 request.AddOrUpdateHeaders(headerParams);
             }
 
-            request.Timeout = timeoutSecond * 1000;
-            request.AddJsonBody(requestBody);
+            request.AddStringBody(JsonConvert.SerializeObject(requestBody), "application/json");
             var response = await _client.PostAsync<ApiResponce<T>>(request, cancellationToken);
             return response;
         }
@@ -135,13 +135,13 @@ public class HttpClientHelper
         }
     }
 
-    private async Task CreateSign(Dictionary<string, string> queryParams, string requestBody = "")
+    private Dictionary<string, string> CreateSign<T>(Dictionary<string, string> queryParams, T requestBody)
     {
         DateTimeOffset offTime = new DateTimeOffset(DateTime.Now);
         string timeSpan = offTime.ToUnixTimeMilliseconds().ToString();
         string nonce = Guid.NewGuid().ToString();
         string secretKey = string.Empty;
-        if (string.IsNullOrEmpty(requestBody))
+        if (requestBody == null)
             secretKey = GetSecretKey(queryParams);
         else
             secretKey = GetSecretKey(requestBody);
@@ -152,7 +152,7 @@ public class HttpClientHelper
         queryParams.Add("timespan", timeSpan);
         queryParams.Add("nonce", nonce);
         queryParams.Add("sign", sign);
-        await Task.CompletedTask;
+        return queryParams;
     }
 
     private async Task AddAccToken(RestRequest restRequest)
@@ -173,6 +173,18 @@ public class HttpClientHelper
         if (queryParams != null)
         {
             return EncyptHelper.AESEncrypt(JsonConvert.SerializeObject(queryParams), _appSetting.ConnKey, _appSetting.ConnIV);
+        }
+        else
+        {
+            return EncyptHelper.AESEncrypt("{}", _appSetting.ConnKey, _appSetting.ConnIV);
+        }
+    }
+
+    private string GetSecretKey<T>(T t)
+    {
+        if (t != null)
+        {
+            return EncyptHelper.AESEncrypt(JsonConvert.SerializeObject(t), _appSetting.ConnKey, _appSetting.ConnIV);
         }
         else
         {
