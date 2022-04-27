@@ -16,7 +16,7 @@ public partial class Register
     [Inject] public NavigationManager _navigation { get; set; }
     [Inject] public HttpClientHelper _httpClientHelper { get; set; }
     [Inject] public UserInfoServers _userInfoServers { get; set; }
-    [Inject] public CookieStorage _cookieStorage { get; set; }
+    [Inject] public IStorageProvider _localStorage { get; set; }
     [Inject] public IOptionsMonitor<AppSetting> _appSetting { get; set; }
 
     // private Func<string, StringBoolean> _phoneRule = value => System.Text.RegularExpressions.Regex.Match(value, "^1[3456789]\\d{9}$").Success ? true : "Invalid Phone.";
@@ -62,8 +62,15 @@ public partial class Register
             if (authInfo.Code == (int)ApiResultEnum.Succeed)
             {
 
-                _cookieStorage.SetItemAsync("accessToken", authInfo.Data.access_token);
-                _navigation.NavigateTo($"{_navigation.BaseUri}");
+#if DEBUG
+                await _localStorage.SetCookiesItemAsync(GlobalConfig.TokenKey, authInfo.Data.access_token, default);
+#else
+                await _localStorage.SetCookiesItemAsync(GlobalConfig.TokenKey, authInfo.Data.access_token, ".witeemv.cn", true, default);
+#endif
+
+                // 存浏览器本地缓存
+                // await _localStorage.SetItemAsStringAsync(GlobalConfig.TokenKey, authInfo.Data.access_token);
+                _navigation.NavigateTo($"{_navigation.BaseUri}"); // 跳转到首页，可以优化成根据返回的地址路径进行跳转
             }
             else
             {
