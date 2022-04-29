@@ -60,3 +60,52 @@
 .hover-pointer {
     cursor: pointer;
 }
+
+.text-s1 {
+    font-size:1rem;
+}
+
+.text-s2 {
+    font-size: 1.25rem;
+}
+
+.text-s3 {
+    font-size: 1.5rem;
+}
+
+.text-s4 {
+    font-size: 1.75rem;
+}
+
+.text-m1 {
+    font-size: 2rem;
+}
+
+.text-m2 {
+    font-size: 2.25rem;
+}
+
+.text-m3 {
+    font-size: 2.5rem;
+}
+
+.text-m4 {
+    font-size: 2.75rem;
+}
+
+.text-l1 {
+    font-size: 3rem;
+}
+
+.text-l2 {
+    font-size: 3.25rem;
+}
+
+.text-l3 {
+    font-size: 3.5rem;
+}
+
+.text-l4 {
+    font-size: 3.75rem;
+}
+

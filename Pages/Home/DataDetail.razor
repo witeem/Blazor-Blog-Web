@@ -2,34 +2,42 @@
 @page "/DataDetail/{Id}"
 @layout EmptyLayout
 
-<MCard Height="200" Light Flat>
-    <MToolbar Prominent Extended Elevation=1>
-        <MButton Icon Link Href="/"
-                 Class="hidden-xs-only">
-            <MIcon>mdi-arrow-left</MIcon>
-        </MButton>
-        <MToolbarTitle>Witeem</MToolbarTitle>
-
-        <MSpacer></MSpacer>
-
-        <MButton Icon>
-            <MIcon>mdi-magnify</MIcon>
-        </MButton>
-
-        <MButton Icon>
-            <MIcon>mdi-heart</MIcon>
-        </MButton>
-
-        <MButton Icon>
-            <MIcon>mdi-dots-vertical</MIcon>
-        </MButton>
-    </MToolbar>
-</MCard>
-<div class="d-flex justify-center mb-6" style="height:calc(100% - 200px)">
+<MAppBar Absolute Elevation=0 MaxHeight=128 Height=128 Class="rounded-b-xl" Src="images/bg.jpg" Prominent App>
+    <ImgContent>
+        <MImage Gradient="to top left, rgba(100,115,201,.7), rgba(25,32,72,.7)" @attributes="@context"></MImage>
+    </ImgContent>
+    <ChildContent>
+        <MRow Style="width:100%; margin:auto; position:absolute; top:5px; left:10px;">
+            <MButton Icon Link Href="/"
+                     Class="white--text">
+                <i class="iconfont iconfont-l icon-fanhuijiantou"></i>
+            </MButton>
+        </MRow>
+        <MRow Style="width:98%; margin:auto; position:absolute; top:80px; left:15px;" Class="white--text">
+            <MCol Cols="3">
+                <MToolbarTitle>Witeem</MToolbarTitle>
+            </MCol>
+            <MCol Cols="9">
+                <MToolbarTitle>
+                    <div class="float-right ml-4 num-hover">
+                        <i class="iconfont icon-shoucang"></i>
+                        <span class="text-s1"> 12345</span>
+                    </div>
+                    <div class="float-right num-hover">
+                        <i class="iconfont icon-yueduxiao"></i>
+                        <span class="text-s1">12345</span>
+                    </div>
+                </MToolbarTitle>
+            </MCol>
+        </MRow>
+    </ChildContent>
+</MAppBar>
+<div class="d-flex justify-center" style="height:calc(100% - 200px); margin-top:130px;">
     <div class="col-md-8 line-numbers">
         @if (_hasXss)
         {
-            @_postHtmlContent.ToString();
+            @_postHtmlContent.ToString()
+            ;
         }
         else
         {

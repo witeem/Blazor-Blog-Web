@@ -1,9 +1,9 @@
 ﻿@inherits LayoutComponentBase
 @inject NavHelper NavHelper
 <MApp>
-    <MAppBar Absolute Elevation=0 MaxHeight=250 Height=250 Class="ml-8 mr-8 rounded-2" Color="#6A76AB" Src="images/bg.jpg" Dark FadeImgOnScroll Prominent App>
+    <MAppBar Absolute Elevation=0 MaxHeight=250 Height=250 Class="ml-8 mr-8 rounded-b-xl" Src="images/bg.jpg" FadeImgOnScroll Prominent App>
          <ImgContent>
-            <MImage Gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)" @attributes="@context"></MImage>
+            <MImage Gradient="to top left, rgba(100,115,201,.7), rgba(25,32,72,.7)" @attributes="@context"></MImage>
         </ImgContent>
         <ChildContent>
             <MAppBarTitle Class="white--text ml-6 mb-4">工欲善其事，必先利其器</MAppBarTitle>
@@ -39,7 +39,7 @@
             {
                 <MMenu Bottom MinWidth="200" Rounded="@true" OffsetY>
                     <ActivatorContent>
-                        <MButton Icon OnClick="Login"><MIcon Color="#fff">mdi-account-circle-outline</MIcon></MButton>
+                        <MButton Icon OnClick="Login"><i class="iconfont icon-wode"></i></MButton>
                     </ActivatorContent>
                 </MMenu>
             }
