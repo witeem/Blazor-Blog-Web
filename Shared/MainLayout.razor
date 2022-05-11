@@ -14,7 +14,7 @@
                     <ActivatorContent>
                         <MButton Icon Large @attributes="context.Attrs">
                             <MAvatar Size="48">
-                                <MImage Src="@_userInfo?.Picture" Alt="@_userInfo?.Name"></MImage>
+                                <MImage Src="@_userInfo.Picture" Alt="@_userInfo.Name"></MImage>
                             </MAvatar>
                         </MButton>
                     </ActivatorContent>
@@ -23,10 +23,10 @@
                             <MListItemContent Class="justify-center">
                                 <div class="mx-auto text-center">
                                     <MAvatar Size="48">
-                                        <MImage Src="@_userInfo?.Picture" Alt="@_userInfo?.Name"></MImage>
+                                        <MImage Src="@_userInfo.Picture" Alt="@_userInfo.Name"></MImage>
                                     </MAvatar>
-                                    <h5>@_userInfo?.Name</h5>
-                                    <p class="text-caption mt-1">@_userInfo?.NickName</p>
+                                    <h5>@_userInfo.Name</h5>
+                                    <p class="text-caption mt-1">@_userInfo.NickName</p>
                                     <MDivider class="my-3"></MDivider>
                                     <MButton Depressed Rounded Text Small OnClick="Logout">Logout</MButton>
                                 </div>
@@ -51,9 +51,9 @@
                 <MAvatar Size=200>
                     <MImage Src="/images/witeem.png" Alt="Jack"></MImage>
                 </MAvatar>
-                <MCardTitle>@(_bloggerInfo?.Blogger ?? "")</MCardTitle>
+                <MCardTitle>@(_bloggerInfo.Blogger ?? "")</MCardTitle>
                 <MCardText>
-                    <div>@(_bloggerInfo?.Details ?? "")</div>
+                    <div>@(_bloggerInfo.Details ?? "")</div>
                 </MCardText>
             </ChildContent>
         </MCard>

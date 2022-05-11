@@ -1,6 +1,6 @@
 ﻿namespace BlazorServerApp.Data.Blogger
 {
-    public class BloggerArticleDto
+    public struct BloggerArticleDto
     {
         public long Id { get; set; }
 

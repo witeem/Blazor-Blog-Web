@@ -1,7 +1,5 @@
-﻿using Blazored.LocalStorage;
-using BlazorServerApp.Global.Base.Enums;
+﻿using BlazorServerApp.Global.Base.Enums;
 using BlazorServerApp.HttpServers.Dtos;
-using Microsoft.Extensions.Options;
 
 namespace BlazorServerApp.Pages.Authentication;
 

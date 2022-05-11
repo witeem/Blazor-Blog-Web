@@ -1,5 +1,5 @@
 ﻿namespace BlazorServerApp.Data.Blogger;
-public class AdverUserInfoDto
+public struct AdverUserInfoDto
 {
     /// <summary>
     /// 名称

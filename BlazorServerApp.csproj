@@ -30,4 +30,7 @@
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Data\Dto\" />
+	</ItemGroup>
 </Project>
