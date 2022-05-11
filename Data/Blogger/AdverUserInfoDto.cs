@@ -4,27 +4,27 @@ public struct AdverUserInfoDto
     /// <summary>
     /// 名称
     /// </summary>
-    public string Name { get; set; } = "";
+    public string Name { get; set; }
 
     /// <summary>
     /// 昵称
     /// </summary>
-    public string NickName { get; set; } = "";
+    public string NickName { get; set; }
 
     /// <summary>
     /// 手机号
     /// </summary>
-    public string Phone { get; set; } = "";
+    public string Phone { get; set; }
 
     /// <summary>
     /// 密码
     /// </summary>
-    public string Password { get; set; } = "";
+    public string Password { get; set; }
 
     /// <summary>
     /// 头像
     /// </summary>
-    public string Picture { get; set; } = "";
+    public string Picture { get; set; }
 
     /// <summary>
     /// 出生日期
@@ -44,5 +44,5 @@ public struct AdverUserInfoDto
     /// <summary>
     /// 用户权限(最多存在5种,使用英文逗号隔开)
     /// </summary>
-    public string RoleCodes { get; set; } = "";
+    public string RoleCodes { get; set; }
 }
