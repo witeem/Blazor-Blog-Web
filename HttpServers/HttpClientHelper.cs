@@ -80,8 +80,16 @@ public class HttpClientHelper
             }
 
             request.Timeout = timeoutSecond * 1000;
-            var response = await _client.GetAsync<ApiResponce<T>>(request, cancellationToken);
-            return response;
+            var response = await _client.GetAsync(request, cancellationToken);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var data = response.Content.ToObject<ApiResponce<T>>();
+                return data;
+            }
+            else 
+            {
+                return ApiResponce<T>.Fail((int)response.StatusCode, response.ErrorMessage);
+            }
         }
         catch (Exception ex)
         {
@@ -125,8 +133,16 @@ public class HttpClientHelper
             }
 
             request.AddStringBody(JsonConvert.SerializeObject(requestBody), "application/json");
-            var response = await _client.PostAsync<ApiResponce<T>>(request, cancellationToken);
-            return response;
+            var response = await _client.PostAsync(request, cancellationToken);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var data = response.Content.ToObject<ApiResponce<T>>();
+                return data;
+            }
+            else
+            {
+                return ApiResponce<T>.Fail((int)response.StatusCode, response.ErrorMessage);
+            }
         }
         catch (Exception ex)
         {
